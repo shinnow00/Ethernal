@@ -218,6 +218,19 @@
       document.getElementById('cameraModal').style.display = 'none';
       document.getElementById('qrCodeBox').style.display = 'block';
     }
+
+    // Debugging: Check if the camera feed is available
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        console.log('Camera stream detected:', stream);
+        const video = document.getElementById('cameraFeed');
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch((err) => {
+        console.error('Error accessing camera:', err);
+        alert('Unable to access camera. Please check your camera permissions.');
+      });
   </script>
 </body>
 </html>
