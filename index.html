@@ -72,6 +72,17 @@
       padding: 10px;
       cursor: pointer;
     }
+    /* QR code scanning box */
+    #qrCodeBoxInsideCamera {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      transform: translate(-50%, -50%);
+      border: 2px dashed #b1a6c8;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
@@ -98,6 +109,8 @@
     <div id="cameraContainer">
       <button id="closeModalBtn" onclick="closeModal()">X</button>
       <video id="cameraFeed" autoplay></video>
+      <!-- QR Code Scanning Box -->
+      <div id="qrCodeBoxInsideCamera"></div>
     </div>
   </div>
 
