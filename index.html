@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,17 +73,6 @@
       padding: 10px;
       cursor: pointer;
     }
-    /* QR code scanning box */
-    #qrCodeBoxInsideCamera {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 200px;
-      height: 200px;
-      transform: translate(-50%, -50%);
-      border: 2px dashed #b1a6c8;
-      z-index: 9999;
-    }
   </style>
 </head>
 <body>
@@ -108,18 +98,15 @@
   <div id="cameraModal">
     <div id="cameraContainer">
       <button id="closeModalBtn" onclick="closeModal()">X</button>
-      <video id="cameraFeed" autoplay></video>
-      <!-- QR Code Scanning Box -->
-      <div id="qrCodeBoxInsideCamera"></div>
+      <div id="cameraFeed"></div>
     </div>
   </div>
 
   <!-- QR Code Library -->
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
-
   <script>
-    const API_KEY = 'AIzaSyD4Jf3ivupRP5VUfdkSeo7cG9cUTFHawHQ'; // Your API key here
-    const SHEET_ID = '1eSpW1Wa4-DkVidWFX-azeCuLO7259-qcslPPmliZrpE'; // Your Google Sheet ID here
+    const API_KEY = 'YOUR_API_KEY'; // Replace with your API key
+    const SHEET_ID = 'YOUR_SHEET_ID'; // Replace with your Google Sheet ID
 
     function searchProduct(productCode) {
       if (!productCode) {
@@ -147,7 +134,7 @@
             });
             document.getElementById('home').style.display = 'none';
             document.getElementById('result').style.display = 'block';
-            document.getElementById('backButton').style.display = 'block'; // Show the Back button
+            document.getElementById('backButton').style.display = 'block';
           } else {
             alert('Product not found.');
           }
@@ -161,76 +148,39 @@
     function goBack() {
       document.getElementById('home').style.display = 'block';
       document.getElementById('result').style.display = 'none';
-      document.getElementById('backButton').style.display = 'none'; // Hide the Back button
+      document.getElementById('backButton').style.display = 'none';
       document.getElementById('productCodeInput').value = '';
     }
 
     function startQRScanner() {
-      // Ensure that the library is fully loaded
       if (typeof Html5Qrcode === "undefined") {
         alert("QR Code scanner library failed to load!");
         return;
       }
 
-      const qrCodeBox = document.getElementById("qrCodeBox");
       const html5QrCode = new Html5Qrcode("cameraFeed");
-
-      // Show the camera modal (popup)
       document.getElementById('cameraModal').style.display = 'block';
-      qrCodeBox.style.display = 'none';
 
-      // Show loading message
-      document.getElementById('loading').style.display = 'block';
-
-      // Start the QR code scanner using the back camera (environment facing mode)
       html5QrCode.start(
-        { facingMode: { exact: "environment" } },  // Explicitly request the rear camera
-        {
-          fps: 10,  // Scan at 10 frames per second
-          qrbox: { width: 200, height: 200 }  // Set size of the QR scanning box
-        },
-        qrCodeMessage => {
-          // Stop scanning after successful read
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 200, height: 200 } },
+        (qrCodeMessage) => {
           html5QrCode.stop();
-
-          // Hide loading message
-          document.getElementById('loading').style.display = 'none';
-
-          // Use QR code result to search product
           searchProduct(qrCodeMessage);
-
-          // Close the camera modal (popup) after scanning
           closeModal();
         },
-        errorMessage => {
-          console.warn(errorMessage); // Errors during scanning
-          document.getElementById('loading').style.display = 'none';
-        })
-        .catch(err => {
-          console.error("Unable to start scanning", err);
-          document.getElementById('loading').style.display = 'none';
-          alert("Error starting the camera. Please try again.");
-        });
+        (errorMessage) => {
+          console.warn("QR Code scanning error:", errorMessage);
+        }
+      ).catch((err) => {
+        console.error("Unable to start scanning", err);
+        alert("Error starting the camera. Please try again.");
+      });
     }
 
     function closeModal() {
-      // Hide the camera modal and show the QR code box again
       document.getElementById('cameraModal').style.display = 'none';
-      document.getElementById('qrCodeBox').style.display = 'block';
     }
-
-    // Debugging: Check if the camera feed is available and use the back camera
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
-      .then((stream) => {
-        console.log('Back camera stream detected:', stream);
-        const video = document.getElementById('cameraFeed');
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch((err) => {
-        console.error('Error accessing back camera:', err);
-        alert('Unable to access back camera. Please check your camera permissions.');
-      });
   </script>
 </body>
 </html>
