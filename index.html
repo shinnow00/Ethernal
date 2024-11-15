@@ -182,9 +182,9 @@
       // Show loading message
       document.getElementById('loading').style.display = 'block';
 
-      // Start the QR code scanner
+      // Start the QR code scanner using the back camera (environment facing mode)
       html5QrCode.start(
-        { facingMode: "environment" },  // Use the rear camera
+        { facingMode: { exact: "environment" } },  // Explicitly request the rear camera
         {
           fps: 10,  // Scan at 10 frames per second
           qrbox: { width: 200, height: 200 }  // Set size of the QR scanning box
@@ -219,17 +219,17 @@
       document.getElementById('qrCodeBox').style.display = 'block';
     }
 
-    // Debugging: Check if the camera feed is available
-    navigator.mediaDevices.getUserMedia({ video: true })
+    // Debugging: Check if the camera feed is available and use the back camera
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
       .then((stream) => {
-        console.log('Camera stream detected:', stream);
+        console.log('Back camera stream detected:', stream);
         const video = document.getElementById('cameraFeed');
         video.srcObject = stream;
         video.play();
       })
       .catch((err) => {
-        console.error('Error accessing camera:', err);
-        alert('Unable to access camera. Please check your camera permissions.');
+        console.error('Error accessing back camera:', err);
+        alert('Unable to access back camera. Please check your camera permissions.');
       });
   </script>
 </body>
