@@ -36,17 +36,41 @@
       font-size: 18px;
       color: #333;
     }
-    #cameraContainer {
-      width: 100%;
-      height: 400px;
-      margin: 10px auto;
-      position: relative;
+    /* Modal styling */
+    #cameraModal {
       display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+    }
+    #cameraContainer {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
     }
     #cameraFeed {
       width: 100%;
       height: 100%;
-      border: 2px solid #b1a6c8;
+    }
+    #closeModalBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -69,9 +93,12 @@
 
   <div id="loading">Scanning... Please hold on.</div> <!-- Loading message -->
 
-  <!-- Camera Feed -->
-  <div id="cameraContainer">
-    <video id="cameraFeed" autoplay></video>
+  <!-- Camera Modal (Popup) -->
+  <div id="cameraModal">
+    <div id="cameraContainer">
+      <button id="closeModalBtn" onclick="closeModal()">X</button>
+      <video id="cameraFeed" autoplay></video>
+    </div>
   </div>
 
   <!-- QR Code Library -->
@@ -123,7 +150,6 @@
       document.getElementById('result').style.display = 'none';
       document.getElementById('backButton').style.display = 'none'; // Hide the Back button
       document.getElementById('productCodeInput').value = '';
-      document.getElementById('cameraContainer').style.display = 'none'; // Hide the camera feed when going back
     }
 
     function startQRScanner() {
@@ -136,8 +162,8 @@
       const qrCodeBox = document.getElementById("qrCodeBox");
       const html5QrCode = new Html5Qrcode("cameraFeed");
 
-      // Show camera container and hide the QR code box
-      document.getElementById('cameraContainer').style.display = 'block';
+      // Show the camera modal (popup)
+      document.getElementById('cameraModal').style.display = 'block';
       qrCodeBox.style.display = 'none';
 
       // Show loading message
@@ -159,6 +185,9 @@
 
           // Use QR code result to search product
           searchProduct(qrCodeMessage);
+
+          // Close the camera modal (popup) after scanning
+          closeModal();
         },
         errorMessage => {
           console.warn(errorMessage); // Errors during scanning
@@ -167,7 +196,14 @@
         .catch(err => {
           console.error("Unable to start scanning", err);
           document.getElementById('loading').style.display = 'none';
+          alert("Error starting the camera. Please try again.");
         });
+    }
+
+    function closeModal() {
+      // Hide the camera modal and show the QR code box again
+      document.getElementById('cameraModal').style.display = 'none';
+      document.getElementById('qrCodeBox').style.display = 'block';
     }
   </script>
 </body>
