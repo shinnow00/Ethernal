@@ -94,6 +94,11 @@ function startQRScanner() {
 // Function to close the camera modal
 function closeModal() {
   const cameraModal = document.getElementById('cameraModal');
-  cameraModal.style.display = 'none';
   cameraModal.style.visibility = 'hidden';
+  cameraModal.style.display = 'none'; // Hide the camera modal
+}
+function openCamera() {
+  const cameraModal = document.getElementById('cameraModal');
+  cameraModal.style.visibility = 'visible';
+  cameraModal.style.display = 'flex'; // Show the camera modal
 }
