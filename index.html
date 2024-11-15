@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethernal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <img src="logo.png" id="logo" alt="logo">
+  <div id="loading">Inventory Management System</div> <!-- Loading message -->
+  <div id="home">
+    <!-- QR Code Scanner -->
+    <div id="qrCodeBox" onclick="startQRScanner()">Scan QR Code</div>
+
+    <!-- Manual Product Code Input -->
+    <input type="number" id="productCodeInput" placeholder="Enter Product Code" required>
+    <button onclick="searchProduct()">Go</button>
+  </div>
+
+  <div id="result" style="display: none;">
+    <h2>Product Details</h2>
+    <div id="productData"></div>
+    <button id="backButton" onclick="goBack()" style="display: none;">Back</button>
+  </div>
+
+
+  <!-- Camera Modal (Popup) -->
+  <div id="cameraModal" style="visibility: hidden; display: none;">
+    <div id="cameraContainer">
+      <button id="closeModalBtn" onclick="closeModal()">X</button>
+      <div id="cameraFeed"></div>
+    </div>
+  </div>
+
+  <!-- QR Code Library -->
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+  <script src="script.js"></script> <!-- Include the external JS file -->
+</body>
+</html>

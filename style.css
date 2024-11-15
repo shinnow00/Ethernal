@@ -1,0 +1,169 @@
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #1b002c);
+  color: #fff;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#home, #result {
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 15px;
+  background: #ffffff10;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+input[type="number"] {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  color: #333;
+}
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  transform: scale(1.05);
+}
+
+#qrCodeBox {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  border: 2px dashed #fff;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  background: #ffffff10;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+#qrCodeBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+#logo{
+  width: 324px;
+  margin-bottom: -39px;
+}
+
+#loading {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #fff;
+  animation: fadeIn 1s infinite alternate;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0.6;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+#cameraModal {
+  visibility: hidden;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#cameraContainer {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  height: 70%;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#closeModalBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4b2b;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+#closeModalBtn:hover {
+  transform: rotate(10deg);
+  background: #ff416c;
+}
+
+#productData p {
+  text-align: center;
+  font-size: 16px;
+  margin: 5px 0;
+  color: #b8b6b6;
+}
+
+#backButton {
+  margin-left: 157px;
+  background: linear-gradient(135deg, #42e695, #3bb2b8);
+}
+
+#backButton:hover {
+  background: linear-gradient(135deg, #3bb2b8, #42e695);
+}
